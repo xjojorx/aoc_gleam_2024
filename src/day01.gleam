@@ -1,10 +1,9 @@
+import gleam/dict.{type Dict}
 import gleam/int
 import gleam/io
-import gleam/iterator
-import gleam/yielder
 import gleam/list
-import gleam/dict.{type Dict}
 import gleam/string
+import gleam/yielder
 import reader
 
 pub fn main() {
@@ -44,12 +43,12 @@ fn part2(l1: List(Int), l2: List(Int)) -> Int {
   use acc, item <- list.fold(l1, 0)
   case dict.get(freqs, item) {
     Ok(n) -> acc + { item * n }
-    Error(_) -> acc 
+    Error(_) -> acc
   }
 }
 
 fn freq_list(l: List(Int)) -> Dict(Int, Int) {
   yielder.from_list(l)
   |> yielder.group(fn(it) { it })
-  |> dict.map_values(fn(_k,v) { list.length(v) })
+  |> dict.map_values(fn(_k, v) { list.length(v) })
 }
