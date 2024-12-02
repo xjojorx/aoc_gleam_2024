@@ -19,34 +19,35 @@ pub fn main() {
       nums
     })
 
+  let res =
+    lines
+    |> list.filter(is_safe)
+    |> list.length
 
-  let res = lines
-  |> list.filter(is_safe)
-  |> list.length
+  io.println("Part 1: " <> string.inspect(res))
 
-  io.println("Part 1: "<>string.inspect(res))
+  let res =
+    lines
+    |> list.filter(is_safe_removing(_, 1))
+    |> list.length
 
-  let res = lines
-  |> list.filter(is_safe_removing(_, 1))
-  |> list.length
-
-  io.println("Part 2: "<>string.inspect(res))
+  io.println("Part 2: " <> string.inspect(res))
 }
 
 fn is_safe(line: List(Int)) -> Bool {
   let pairs = list.window_by_2(line)
-  
+
   let assert Ok(fst) = list.first(pairs)
   let asc = fst.0 < fst.1
 
-  list.all(pairs, fn(pair){
+  list.all(pairs, fn(pair) {
     let dir = case asc {
       True -> pair.0 < pair.1
       False -> pair.0 > pair.1
     }
 
-    let diff = int.absolute_value(pair.0-pair.1)
-    
+    let diff = int.absolute_value(pair.0 - pair.1)
+
     dir && diff <= 3 && diff >= 1
   })
 }
