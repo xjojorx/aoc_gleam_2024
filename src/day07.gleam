@@ -5,7 +5,6 @@ import gleam/string
 import reader
 
 type Operation {
-  Value(Int)
   Add
   Multiply
   Concat
